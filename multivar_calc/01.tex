@@ -1,0 +1,104 @@
+\chapter{Derivatives}
+
+\section{Derivatives in several variables}
+
+\subsection{Partial Derivatives}
+
+\begin{definition}{Partial derivative}
+  A partial derivative is differentiating a function with respect to only one variable.\\
+  \[
+    \frac{\partial f}{\partial a_i} = \frac{f(a_1, \ldots, a_i + h, \ldots, a_n) - f(a_1, \dots, a_i, \ldots, a_n)}{h}$
+  \]
+\end{definition}
+
+\begin{remark}
+  Just imagine every other $a_k$ where $k \in \{1, \ldots, n\}$ is a constant.\\
+\end{remark}
+\begin{eg}
+  Let
+  \[
+    f(x, y) = x^2 + x^3y^2 + y^{78}  
+  \]
+  \[
+    \frac{\partial f}{\partial x} = 2x + 3x^2y^2 + 0
+    \]
+\end{eg}
+
+\begin{eg}
+  Let
+  \[
+    f(a, b) = a\sin(b) + b^2
+  \]
+  \[
+    \frac{\partial f}{\partial b} = a\cos(b) + 2b
+    \]
+\end{eg}
+\newpage
+\subsection{Partial derivatives in $\mathbb{R}^{n}$}
+Just evaluate the derivative at each value
+
+\begin{eg}
+  Let $f: \mathbb{R}^{2} \to \mathbb{R}^{2}$ be
+  \[
+    f(x, y) = (x^2y, \cos(y))
+    \]
+    \[
+      \frac{\partial f}{\partial y} = (x^2, -\sin(y))  
+    \]
+
+    \[
+      \frac{\partial f}{\partial x} = (2xy, 0)  
+    \]
+
+\end{eg}
+
+\subsection{The derivative in several variables}
+
+Before we start differentiating, it is helpful to note that the previous
+definition(s) of derivatives will not work for all dimensions, thus, we come up with a generalization
+
+\begin{definition}{Derivative (Alternate)}
+  $f$ is diffentiable at $\alpha$ with the derivative $\beta$ if and only if
+  \[
+    \lim_{h \to 0} \frac{(f(a+h) - f(a)) - (\beta\alpha)}{h}
+  \]
+\end{definition}
+
+\subsection{Jacobian Matrix}
+
+\begin{definition}{Jacobian Matrix}
+Let $\mathbf{S}$ be a subset of $\mathbb{R}^{n}$.\\
+The Jacobian matrix of $f: S \to \mathbb{R}^{m}$ is an $m \times n$ matrix of the partial derivatives of $f$ at $\alpha$
+\[
+\begin{vmatrix}
+  \mathbf{J}f(\alpha)
+\end{vmatrix}
+= \begin{pmatrix}
+  \frac{\partial f_1}{\partial x_1}(\alpha) & \ldots & \frac{\partial f_1}{\partial x_n}(\alpha)\\
+  \vdots & & \vdots\\
+  \frac{\partial f_m}{\partial x_1}(\alpha) & \ldots & \frac{\partial f_m}{\partial x_n}(\alpha)
+\end{pmatrix}
+\]
+\end{definition}
+
+\begin{eg}
+  Let $f(x, y) = (x^3y, 2x^2y^2, xy)$
+  \[
+    \begin{pmatrix}
+      3x^2y & x^3\\
+      4xy^2 & 4x^2y\\
+      y & x
+    \end{pmatrix}
+  \]
+\end{eg}
+\newpage
+Because of this, we have to update our derivative definition
+
+\begin{definition}{Derivative}
+  Let $\mathbf{S}$ \subset $\mathbb{R}^n$ and let $f: S \to \mathbb{R}^m$. Let $\alpha$ be a point in $\mathbf{S}$.
+  If $\mathbf{L}: \mathbb{R}^n\to\mathbb{R}^m$, such that
+  \[
+    \lim_{\vec{h} \to 0} \frac{(f(a + h) - f(a)) - \mathbf{L}(\vec{h})}{\vec{h}} = \vec{0}
+    \]
+  Then $f$ is differentiable at $\alpha$, $\mathbf{L}$ is the unique derivative of $f$, which is denoted $f^\prime$
+\end{definition}
