@@ -1,5 +1,4 @@
 \chapter{Derivatives}
-
 \section{Derivatives in several variables}
 
 \subsection{Partial Derivatives}
@@ -95,10 +94,144 @@ The Jacobian matrix of $f: S \to \mathbb{R}^{m}$ is an $m \times n$ matrix of th
 Because of this, we have to update our derivative definition
 
 \begin{definition}{Derivative}
-  Let $\mathbf{S}$ \subset $\mathbb{R}^n$ and let $f: S \to \mathbb{R}^m$. Let $\alpha$ be a point in $\mathbf{S}$.
-  If $\mathbf{L}: \mathbb{R}^n\to\mathbb{R}^m$, such that
+  Let $\mathbf{S} \subset \mathbb{R}^n$ and let $f: \mathbf{S} \to \mathbb{R}^m$. Let $\alpha$ be a point in $\mathbf{S}$.
+  If $\mathbf{L}: \mathbb{R}^n \to \mathbb{R}^m$, such that
   \[
     \lim_{\vec{h} \to 0} \frac{(f(a + h) - f(a)) - \mathbf{L}(\vec{h})}{\vec{h}} = \vec{0}
     \]
-  Then $f$ is differentiable at $\alpha$, $\mathbf{L}$ is the unique derivative of $f$, which is denoted $f^\prime$
+    Then $f$ is differentiable at $\alpha$, $\mathbf{L}$ is the unique derivative of $f$, which is denoted 
+    \begin{bmatrix}
+      Df(\alpha)
+    \end{bmatrix}
 \end{definition}
+
+\begin{theorem}
+  Let $\mathbf{S} \subset \mathbb{R}^n$  and let $f: \mathbf{S}\to \mathbb{R}^m$.
+  If $f$ is differentiable at $\alpha$, then all first order partial derivatives of $f$ at $\alpha$ exist,
+  and \begin{bmatrix}
+    Df(\alpha)
+    \end{bmatrix} is 
+    \begin{bmatrix}
+      Jf(\alpha)
+    \end{bmatrix}
+\end{theorem}
+\begin{proof}
+  First, note that the derivative must be $L$, so we need to prove that
+  \[
+    L(\vec{s}_i) = \vec{D_if}(a)
+    \]
+    Now, we can make the limit of a random scalar $c$ approach 0, which means $c\vec{s_i}$ approaches $0$
+  \[
+    \lim_{c\vec{s_i} \to 0} \frac{f(a + c\vec{s_i}) - f(a) - L(c\vec{s_i})}{|cs_i|} = 0
+    
+    \]
+  $|c\vec{s_i}}| = |c||\vec{s_i}|$ and $|\vec{s_i}|$ is equal to 1 (standard basis) so it is just $|c|$. Also since its approaching 0, $c$ can be positive or negative
+   \[
+   \lim_{c\vec{s_i} \to 0} \frac{f(a + c\vec{s_i}) - f(a) - L(c\vec{s_i})}{c} = 0
+ \]
+
+   Since $L$ is a linear transformation, $L(c\vec{s_i}) = cL(\vec{s_i})$
+   \[
+     \lim_{c\vec{s_i} \to 0} \frac{f(a + c\vec{s_i}) - f(a)}{c} - L(\vec{s_i}) -  = 0
+     \]
+  This is the exact formula for the partial derivative
+\end{proof}
+
+\begin{definition}{gradient}
+  
+  \begin{displaymath}
+    grad = \begin{pmatrix}
+      D_1f(\alpha)\\
+      \vdots\\
+      D_nf(\alpha)
+    \end{pmatrix}
+  \end{displaymath}
+  
+\end{definition}
+\newpage
+\subsection{Directional derivatives}
+\begin{definition}{Directional derivatives}
+  Directional derivatives are simply a generalization of partial dervatives
+  \begin{displaymath}
+    \lim_{h\to 0} \frac{f(a + h\vec{v}) - f(a)}{h}
+  \end{displaymath}
+\end{definition}
+
+\begin{prop}
+  If $U \subset \mathbb{R}^n$, and $f: U\to \mathbb{R}^m$ is differentiable at a point $\alpha \in U$, then all 
+  directional derivatives of $f$ at $\alpha$ exist, and the directional derivative is equal
+  to 
+  $\vec{v}$
+  \begin{bmatrix}
+    Df(a)
+  \end{bmatrix}
+\end{prop}
+
+\begin{proof}
+  Let $g(\vec{h}) = (f(a + \vec{h}) - f(a)) - \vec{h}\begin{bmatrix}Df(a)\end{bmatrix}$
+  Subsititute $h\vec{v}$ for $\vec{h}$ in $g$
+  \begin{displaymath}
+    \frac{g(h\vec{v})}{1} = f(a + h\vec{v}) - f(a) - h\vec{v}\begin{bmatrix}Df(a)\end{bmatrix}
+  \end{displaymath}
+  Since we know that $f$ is differentiable at $\alpha$
+  \begin{displaymath}
+    \lim_{h\to 0} \frac{g(h\vec{v})}{h|\vec{v}|} = 0
+  \end{displaymath}
+  So divide everything by $h$ (Note that the $|\vec{v}|$ cancels out on the LHS)
+  \begin{displaymath}
+    \frac{|\vec{v}|g(h\vec{v})}{h|\vec{v}|} = \frac{f(a + h\vec{v})- f(a)}{h} - \vec{v}\begin{bmatrix}Df(a)\end{bmatrix}
+  \end{displaymath}
+  Since the LHS approaches $0$ as $h\to 0$
+  \begin{displaymath}
+    \frac{f(a + h\vec{v}) - f(a)}{h} = \vec{v}\begin{bmatrix}Df(a)\end{bmatrix}
+  \end{displaymath}
+\end{proof}
+\newpage
+\begin{eg}
+  Let $S \subset \mathbb{R}^2$ and $f: S \to \mathbb{R}^3$ where $f(x, y) = (x + y, y^2x, x^3)$.
+  Find the directional derivative at $(3, 4)$ with the vector $\vec{v} = (2, 1)$\\
+  First, find the matrix of the derivative
+  \begin{displaymath}
+    \begin{pmatrix}
+      Df(x, y)
+    \end{pmatrix} = 
+    \begin{pmatrix}
+      1 & 1\\
+      y^2 & 2yx\\
+      3x^2 & 0
+    \end{pmatrix}
+  \end{displaymath}
+  So
+  \begin{displaymath}
+    \begin{pmatrix}
+      Df(3, 4)
+    \end{pmatrix} = 
+    \begin{pmatrix}
+      1 & 1\\
+      16 & 24\\
+      27 & 0
+    \end{pmatrix}
+  \end{displaymath}
+  Then, multiply by $\vec{v}$
+  \begin{displaymath}
+    \begin{pmatrix}
+      1 & 1\\
+      16 & 24\\
+      27 & 0
+    \end{pmatrix}
+    \begin{pmatrix}
+      2\\
+      1
+    \end{pmatrix}
+    = \begin{pmatrix}
+      3\\
+      56\\
+      54
+    \end{pmatrix}
+  \end{displaymath}
+\end{eg}
+\begin{remark}
+  While finding the Jacobian matrix is faster and easier, in cases where we are dealing
+  with complex spaces and fields, it is best to use the limit definition in \textbf{1.7} and 
+  \textbf{1.4} as it allows you to compute the derivative safely.
+\end{remark}
